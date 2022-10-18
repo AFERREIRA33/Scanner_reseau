@@ -1,7 +1,11 @@
-import ipaddress
-import socket 
-hostname = socket.gethostname()    
-IPAddr = socket.gethostbyname(hostname)   
-print("Your Computer IP Address is:" + IPAddr) 
-# for ip in ipaddress.IPv4Network('192.168.1.0/24'):
-#     print(ip)
+import netifaces
+
+interfaces = netifaces.interfaces()
+
+print(netifaces.ifaddresses(str(interfaces[1])))
+# ip = str(input("ip : "))
+
+
+# for ip in ipaddress.IPv4Network(ip):
+    # response = os.popen(f"ping {ip}").read()
+    # print(ip)
