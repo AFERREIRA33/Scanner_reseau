@@ -8,7 +8,7 @@ import os
 if not os.path.exists("log.txt"):
     with open("log.txt", 'w'):
         pass
-file =  open(“log.txt”,”w”)
+file = open("log.txt", "w")
 
 i = netifaces.interfaces()
 print(i)
