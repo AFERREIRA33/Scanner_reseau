@@ -20,7 +20,7 @@ a = ipaddress.ip_network(
 print(a)
 ip = str(a)
 print('----------------------------------')
-scapy.arping(ip)
+scapy.arping(ip).summary()
 file.write(scapy.arping(ip).summary())
 
 file.close()
