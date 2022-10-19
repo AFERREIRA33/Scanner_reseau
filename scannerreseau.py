@@ -1,11 +1,16 @@
+import ipaddress
 import netifaces
-
-interfaces = netifaces.interfaces()
-
-print(netifaces.ifaddresses(str(interfaces[1])))
-# ip = str(input("ip : "))
+from netaddr import IPAddress
+import scapy.all as scapy
 
 
-# for ip in ipaddress.IPv4Network(ip):
-    # response = os.popen(f"ping {ip}").read()
-    # print(ip)
+i=netifaces.interfaces()
+print(i)
+interfaces = str(input())
+IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
+Netmask = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['netmask']
+a = ipaddress.ip_network(IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
+print(a)
+ip = str(a)
+print('----------------------------------')
+scapy.arping(ip)
