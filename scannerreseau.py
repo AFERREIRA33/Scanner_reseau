@@ -21,6 +21,6 @@ print(a)
 ip = str(a)
 print('----------------------------------')
 scapy.arping(ip)
-file.write(ans.summary())
+file.write(scapy.arping(ip).summary())
 
 file.close()
