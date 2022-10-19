@@ -4,12 +4,13 @@ import netifaces
 from netaddr import IPAddress
 import scapy.all as scapy
 import os
+import logging
 
 if not os.path.exists("log.txt"):
     with open("log.txt", 'w'):
         pass
 file = open("log.txt", "w")
-
+logging.getLogger("scapy")
 i = netifaces.interfaces()
 print(i)
 interfaces = str(input())
