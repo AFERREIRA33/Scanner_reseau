@@ -1,19 +1,24 @@
+from asyncore import write
 import ipaddress
 import netifaces
 from netaddr import IPAddress
+import scapy.all as scapy
 import os
-import scapy
-from scapy.all import ARP, Ether, srp
 
-print(scapy.__version__)
-interfaces = netifaces.ifaddresses(
-    str(netifaces.gateways()['default'][netifaces.AF_INET][1]))
-IpAddr = interfaces[netifaces.AF_INET][0]['addr']
-Netmask = interfaces[netifaces.AF_INET][0]['netmask']
+if not os.path.exists("log.txt"):
+    with open("log.txt", 'w'):
+        pass
+file =  open(“log.txt”,”w”)
+
+i = netifaces.interfaces()
+print(i)
+interfaces = str(input())
+IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
+Netmask = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['netmask']
 a = ipaddress.ip_network(
     IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
 print(a)
+ip = str(a)
 print('----------------------------------')
-for ip in ipaddress.IPv4Network(a):
-    response = os.popen(f"ping {ip} 0-n 1").read()
-    print(response)
+file.write(scapy.arping(ip))
+scapy.arping(ip)
