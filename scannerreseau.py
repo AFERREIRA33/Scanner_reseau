@@ -2,7 +2,10 @@ import ipaddress
 import netifaces
 from netaddr import IPAddress
 import os
+import scapy
+from scapy.all import ARP, Ether, srp
 
+print(scapy.__version__)
 interfaces = netifaces.ifaddresses(
     str(netifaces.gateways()['default'][netifaces.AF_INET][1]))
 IpAddr = interfaces[netifaces.AF_INET][0]['addr']
@@ -12,5 +15,5 @@ a = ipaddress.ip_network(
 print(a)
 print('----------------------------------')
 for ip in ipaddress.IPv4Network(a):
-    response = os.popen(f"ping {ip} -n 1").read()
+    response = os.popen(f"ping {ip} 0-n 1").read()
     print(response)
