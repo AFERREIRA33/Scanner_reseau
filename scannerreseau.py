@@ -43,7 +43,7 @@ def argumentstart(args):
     elif args == "-a":
         return "ARP"
     else :
-        print("please enter a valid argument")
+        print("please enter a valid argument"+"\n")
         print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
         return "invalidargs"
 
@@ -57,8 +57,12 @@ if len(sys.argv) < 1:
         ARPrequest()
     elif resarg == "Port":
         Portrequest()
-        
-
+elif len(sys.argv) > 1:
+    print("too many argument"+"\n")
+    print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
+else :
+    print("please enter a argument"+"\n")
+    print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
 
 
 
