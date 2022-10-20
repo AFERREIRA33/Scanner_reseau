@@ -3,7 +3,6 @@ import ipaddress
 import netifaces
 from netaddr import IPAddress
 import scapy.all as scapy
-from scapy import sendrecv
 import os
 import logging
 
@@ -22,8 +21,6 @@ a = ipaddress.ip_network(
 print(a)
 ip = str(a)
 print('----------------------------------')
-ans, unans = sr(scapy.arping(ip))
-ans.show()
-unans.show()
+file.write(str(list(scapy.arping(ip))))
 scapy.arping(ip)
 file.close()
