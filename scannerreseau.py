@@ -48,7 +48,7 @@ def argumentstart(args):
         return "invalidargs"
 
 
-if len(sys.argv) <= 1:
+if len(sys.argv) <= 2:
     args = str(sys.argv[1])
     resarg = argumentstart(args)
     if resarg == "TCP":
@@ -57,7 +57,7 @@ if len(sys.argv) <= 1:
         ARPrequest()
     elif resarg == "Port":
         Portrequest()
-elif len(sys.argv) >=2 :
+elif len(sys.argv) >=3 :
     print("too many argument"+"\n")
     print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
 else :
