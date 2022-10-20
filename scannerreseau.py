@@ -48,7 +48,7 @@ def argumentstart(args):
         return "invalidargs"
 
 
-if len(sys.argv) < 1:
+if len(sys.argv) <= 1:
     args = str(sys.argv[1])
     resarg = argumentstart(args)
     if resarg == "TCP":
