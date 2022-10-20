@@ -2,13 +2,10 @@ from asyncore import write
 import ipaddress
 import netifaces
 from netaddr import IPAddress
-import scapy.all as scapy
+#import scapy.all as scapy
+from scapy.all import *
 import os
 
-if not os.path.exists("log.txt"):
-    with open("log.txt", 'w'):
-        pass
-file = open("log.txt", "w")
 
 i = netifaces.interfaces()
 print(i)
@@ -20,7 +17,6 @@ a = ipaddress.ip_network(
 print(a)
 ip = str(a)
 print('----------------------------------')
-scapy.arping(ip)
-file.write(ans.summary())
-
-file.close()
+ans,unans = arping(ip)
+#ans, unans = sr(IP(dst=ip)/TCP(dport=53))
+ans.summary()              
