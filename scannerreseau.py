@@ -2,7 +2,9 @@ from asyncore import write
 import ipaddress
 import netifaces
 from netaddr import IPAddress
+from scapy.all import *
 import scapy.all as scapy
+from scapy import sendrecv
 import os
 import logging
 
@@ -21,6 +23,11 @@ a = ipaddress.ip_network(
 print(a)
 ip = str(a)
 print('----------------------------------')
+
 file.write(str(list(scapy.arping(ip))))
+
+ans, unans = sr(scapy.arping(ip))
+ans.show()
+unans.show()
 scapy.arping(ip)
 file.close()
