@@ -33,7 +33,7 @@ def Portrequest():
     print("work")
 
 def argumentstart(args):
-    if args == "-h" or "-help":
+    if args == "-h":
         print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip")
         return "help"
     elif args == "-t":
