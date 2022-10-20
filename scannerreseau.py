@@ -84,3 +84,16 @@ if len(sys.argv) < 1:
 # #ans.summary()
 
 
+# print(a)
+# ip = str(a)
+# print('----------------------------------')
+# ans, unans = arping(ip)
+# print(type(ans))
+# print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+# print(str(ans))
+# u = re.findall(r'[0-9]+(?:\.[0-9]+){3}', ans.summary())
+# print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+# print(u)
+# # ans, unans = sr(IP(dst=ip)/TCP(dport=53), loop=1)
+# a = ans.summary()
+# print(a)
