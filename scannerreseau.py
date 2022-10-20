@@ -3,7 +3,7 @@ import ipaddress
 import netifaces
 from netaddr import IPAddress
 import scapy.all as scapy
-from scapy import *
+from scapy import sendrecv
 import os
 import logging
 
