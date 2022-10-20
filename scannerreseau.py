@@ -6,6 +6,7 @@ from netaddr import IPAddress
 from scapy.all import *
 import os
 import logging
+import re
 
 i = netifaces.interfaces()
 print(i)
@@ -18,6 +19,8 @@ print(a)
 ip = str(a)
 print('----------------------------------')
 ans, unans = arping(ip)
+type(ans)
+u = re.findall(r'[0-9]+(?:\.[0-9]+){3}', ans)
 # ans, unans = sr(IP(dst=ip)/TCP(dport=53), loop=1)
 a = ans.summary()
 print(a)
