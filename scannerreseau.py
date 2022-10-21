@@ -35,18 +35,21 @@ def osrequest():
             if IP in resp:
                 ttl = resp.getlayer(IP).ttl
                 print(ttl)
-                if ttl == 64: 
+                if ttl == 64:
                     os = 'Linux'
-                    print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+                    print(
+                        f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
                 elif ttl == 128:
                     os = 'Windows'
-                    print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+                    print(
+                        f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
                 elif ttl == 255:
                     os = 'Cisco Routeur'
-                    print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+                    print(
+                        f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
                 else:
                     print('Not Found')
-    else :
+    else:
         print("please enter a valid ip")
         osrequest()
             
@@ -103,4 +106,3 @@ else:
     print("please enter a argument"+"\n")
     print("-a : make arp request to all network"+"\n"+"-o : find the os of the choose ip" +
           "\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
-
