@@ -109,6 +109,7 @@ if len(sys.argv) <= 3 or len(sys.argv) > 1:
         if resarg == "os":
             osrequest(arg1)
         elif resarg == "ARP":
+            print(arg1)
             ARPrequest(arg1)
         elif resarg == "Port":
             Portrequest(arg1)
