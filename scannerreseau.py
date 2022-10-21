@@ -22,7 +22,7 @@ def ARPrequest():
 
 def TCPrequest():
     os = ''
-    target = input("Enter the Ip address:")
+    target = str(input("Enter the Ip address:"))
     pack = IP(dst=target)/ICMP()
     resp = sr1(pack, timeout=3)
     if resp:
@@ -30,8 +30,12 @@ def TCPrequest():
             ttl = resp.getlayer(IP).ttl
             if ttl <= 64:
                 os = 'Linux'
-            elif ttl > 64:
+                print(
+                    f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+            elif ttl == 128:
                 os = 'Windows'
+                print(
+                    f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
             else:
                 print('Not Found')
             print(
