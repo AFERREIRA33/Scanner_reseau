@@ -69,9 +69,9 @@ def Portrequest(ip=""):
     except socket.gaierror:
         raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(sync, timeout=2, retry=1)
-    i = 0
+    i = 1
     while len(ans):
-        print(ans[i])
+        print(ans[i-1])
         i += 1
     for sent, recieved in ans:
         if ("TCPerror" not in recieved.summary()):
