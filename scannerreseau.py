@@ -8,18 +8,21 @@ from scapy.layers.inet import IP, ICMP
 
 
 def ARPrequest():
-    i = netifaces.interfaces()
-    print(i)
+    intertable = netifaces.interfaces()
+    print(intertable)
     interfaces = str(input())
-    IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
-    Netmask = netifaces.ifaddresses(
-        interfaces)[netifaces.AF_INET][0]['netmask']
-    a = ipaddress.ip_network(
-        IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
-    ip = str(a)
-    ans, _ = arping(ip)
-    ans.summary()
-
+    if interfaces in intertable:
+        IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
+        Netmask = netifaces.ifaddresses(
+            interfaces)[netifaces.AF_INET][0]['netmask']
+        a = ipaddress.ip_network(
+            IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
+        ip = str(a)
+        ans, _ = arping(ip)
+        ans.summary()
+    else:
+        print("please enter a valid interface")
+        ARPrequest()
 
 def osrequest():
     os = ''
@@ -45,6 +48,7 @@ def osrequest():
                     print('Not Found')
     else :
         print("please enter a valid ip")
+        osrequest()
             
 
 def Portrequest():
