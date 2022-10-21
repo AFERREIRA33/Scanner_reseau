@@ -1,24 +1,24 @@
-from asyncore import write
 import ipaddress
 import netifaces
 from netaddr import IPAddress
 from scapy.all import *
-import os
-import threading
 import sys
 from scapy.layers.inet import IP, ICMP
+
 
 def ARPrequest():
     i = netifaces.interfaces()
     print(i)
     interfaces = str(input())
     IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
-    Netmask = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['netmask']
+    Netmask = netifaces.ifaddresses(
+        interfaces)[netifaces.AF_INET][0]['netmask']
     a = ipaddress.ip_network(
-    IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
+        IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
     ip = str(a)
-    ans,unans = arping(ip)
+    ans, _ = arping(ip)
     ans.summary()
+
 
 def TCPrequest():
     os = ''
@@ -37,12 +37,22 @@ def TCPrequest():
             print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
 
 
+
 def Portrequest():
     print("work")
+    print("Choose an IP to scan :")
+    ip = str(input())
+    port = IP(dst=ip) / TCP(dport=[22, 443], flags="S")
+    ans, _ = sr(port, timeout=2, retry=1)
+    for sent, received in ans:
+        if received[TCP].flags == "SA":
+            print(received[TCP].sport)
+
 
 def argumentstart(args):
     if args == "-h":
-        print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip")
+        print("-a : make arp request to all network"+"\n" +
+              "-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip")
         return "help"
     elif args == "-t":
         return "TCP"
@@ -50,9 +60,10 @@ def argumentstart(args):
         return "Port"
     elif args == "-a":
         return "ARP"
-    else :
+    else:
         print("please enter a valid argument"+"\n")
-        print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
+        print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network" +
+              "\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
         return "invalidargs"
 
 
@@ -65,16 +76,14 @@ if len(sys.argv) <= 2 or len(sys.argv) > 1:
         ARPrequest()
     elif resarg == "Port":
         Portrequest()
-elif len(sys.argv) >=3 :
+elif len(sys.argv) >= 3:
     print("too many argument"+"\n")
-    print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
-else :
+    print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network" +
+          "\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
+else:
     print("please enter a argument"+"\n")
-    print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network"+"\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
-
-
-
-
+    print("-a : make arp request to all network"+"\n"+"-t : make tcp request to all network" +
+          "\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
 
 
 # PING_TIMEOUT = 1
