@@ -32,7 +32,7 @@ def TCPrequest():
     SYN=TCP(sport=SPORT, dport=8008, flags="S", seq=10,window=0xffff, options=tcp_options)
     SYN_ACK=sr1(ip/SYN)
 
-    my_ack = SYNACK.seq+1
+    my_ack = SYN_ACK.seq+1
     ACK=TCP(sport=SPORT, dport=8008, flags="A" , seq=11 , ack=my_ack, window=0xffff)
     send(ip/ACK)
 
