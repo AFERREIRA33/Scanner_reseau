@@ -28,9 +28,9 @@ def TCPrequest():
     if resp:
         if IP in resp:
             ttl = resp.getlayer(IP).ttl
-            if ttl <= 64: 
+            if ttl == 64: 
                 os = 'Linux'
-            elif ttl > 64:
+            elif ttl == 128:
                 os = 'Windows'
             else:
                 print('Not Found')
