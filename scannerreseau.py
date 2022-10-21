@@ -28,21 +28,24 @@ def TCPrequest():
     if resp:
         if IP in resp:
             ttl = resp.getlayer(IP).ttl
-            if ttl <= 64: 
+            if ttl <= 64:
                 os = 'Linux'
             elif ttl > 64:
                 os = 'Windows'
             else:
                 print('Not Found')
-            print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
-
+            print(
+                f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
 
 
 def Portrequest():
     print("work")
     print("Choose an IP to scan :")
     ip = str(input())
-    port = IP(dst=ip) / TCP(dport=[22, 443], flags="S")
+    try:
+        port = IP(dst=ip) / TCP(dport=[22, 80, 443], flags="S")
+    except socket.gaierror:
+        raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(port, timeout=2, retry=1)
     for sent, received in ans:
         if received[TCP].flags == "SA":
