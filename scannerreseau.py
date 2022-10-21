@@ -73,7 +73,7 @@ def Portrequest():
     print(ans[2])
 
     for sent, recieved in ans:
-        if ("TCPERROR" not in recieved.summary()):
+        if ("TCPerror" not in recieved.summary()):
             print(recieved.summary())
 
 
