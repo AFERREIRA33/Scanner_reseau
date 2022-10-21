@@ -7,10 +7,12 @@ import sys
 from scapy.layers.inet import IP, ICMP
 
 
-def ARPrequest():
+def ARPrequest(interfaces = ""):
     intertable = netifaces.interfaces()
-    print(intertable)
-    interfaces = str(input())
+    if interfaces == "":
+        print(intertable)
+        interfaces = str(input("Enter the interfaces: "))
+
     if interfaces in intertable:
         IpAddr = netifaces.ifaddresses(
             interfaces)[netifaces.AF_INET][0]['addr']
@@ -26,9 +28,11 @@ def ARPrequest():
         ARPrequest()
 
 
-def osrequest():
+def osrequest(target = ""):
+    if target == "":
+        target = str(input("Enter the Ip address: "))
     os = ''
-    target = str(input("Enter the Ip address:"))
+    
     reg = r"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
     if re.match(reg, target):
         pack = IP(dst=target)/ICMP()
@@ -56,9 +60,9 @@ def osrequest():
         osrequest()
 
 
-def Portrequest():
-    print("Choose an IP to scan :")
-    ip = str(input())
+def Portrequest(ip = ""):
+    if ip == "":
+       ip = str(input("Choose an IP to scan : "))
     try:
         sync = IP(dst=ip) / TCP(dport=[20, 21, 22, 23, 25, 53, 80, 110, 111, 135, 139,
                                        143, 443, 445, 993, 995, 1723, 3306, 3389, 5900, 8000, 8080, 25565], flags="S")
@@ -88,15 +92,27 @@ def argumentstart(args):
         return "invalidargs"
 
 
-if len(sys.argv) <= 2 or len(sys.argv) > 1:
-    args = str(sys.argv[1])
-    resarg = argumentstart(args)
-    if resarg == "os":
-        osrequest()
-    elif resarg == "ARP":
-        ARPrequest()
-    elif resarg == "Port":
-        Portrequest()
+if len(sys.argv) <= 3 or len(sys.argv) > 1:
+    if len(sys.argv) <= 2:
+        args = str(sys.argv[1])
+        resarg = argumentstart(args)
+        if resarg == "os":
+            osrequest()
+        elif resarg == "ARP":
+            ARPrequest()
+        elif resarg == "Port":
+            Portrequest()
+    else :
+        args = str(sys.argv[1])
+        arg1 = str(sys.argv[2])
+        resarg = argumentstart(args)
+        if resarg == "os":
+            osrequest(arg1)
+        elif resarg == "ARP":
+            print(arg1)
+            ARPrequest(arg1)
+        elif resarg == "Port":
+            Portrequest(arg1)
 elif len(sys.argv) >= 3:
     print("too many argument"+"\n")
     print("-a : make arp request to all network"+"\n"+"-o : find the os of the choose ip" +
