@@ -57,7 +57,6 @@ def osrequest():
 
 
 def Portrequest():
-    print("work")
     print("Choose an IP to scan :")
     ip = str(input())
     try:
@@ -67,8 +66,8 @@ def Portrequest():
         raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(sync, timeout=2, retry=1)
     for sent, recieved in ans:
-        # if ("TCPerror" not in recieved.summary()):
-        print(recieved.summary())
+        if ("TCPerror" not in recieved.summary()):
+            print(recieved.summary())
 
 
 def argumentstart(args):
