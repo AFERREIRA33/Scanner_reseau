@@ -3,6 +3,7 @@ import netifaces
 from netaddr import IPAddress
 from scapy.all import *
 import sys
+from scapy.layers.inet import IP, ICMP
 
 
 def ARPrequest():
@@ -20,15 +21,21 @@ def ARPrequest():
 
 
 def TCPrequest():
-    i = netifaces.interfaces()
-    print(i)
-    interfaces = str(input())
-    IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
-    Netmask = netifaces.ifaddresses(
-        interfaces)[netifaces.AF_INET][0]['netmask']
-    a = ipaddress.ip_network(
-        IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
-    ip = str(a)
+    os = ''
+    target = input("Enter the Ip address:")
+    pack = IP(dst=target)/ICMP()
+    resp = sr1(pack, timeout=3)
+    if resp:
+        if IP in resp:
+            ttl = resp.getlayer(IP).ttl
+            if ttl <= 64: 
+                os = 'Linux'
+            elif ttl > 64:
+                os = 'Windows'
+            else:
+                print('Not Found')
+            print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+
 
 
 def Portrequest():
@@ -60,7 +67,7 @@ def argumentstart(args):
         return "invalidargs"
 
 
-if len(sys.argv) <= 2:
+if len(sys.argv) <= 2 or len(sys.argv) > 1:
     args = str(sys.argv[1])
     resarg = argumentstart(args)
     if resarg == "TCP":
