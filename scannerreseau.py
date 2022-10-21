@@ -66,7 +66,7 @@ def Portrequest():
         raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(sync, timeout=2, retry=1)
     print("-------------")
-    print(ans[0].answer)
+    print(ans[0])
     print("-------------")
     print(ans[1])
     print("-------------")
