@@ -6,6 +6,7 @@ from scapy.all import *
 import os
 import threading
 import sys
+from scapy.layers.inet import IP, ICMP
 
 def ARPrequest():
     i = netifaces.interfaces()
@@ -20,25 +21,20 @@ def ARPrequest():
     ans.summary()
 
 def TCPrequest():
-
-    DSTIP = "192.168.56.105"
-    SPORT = RandNum(1025,65535)
-
-    ip = IP(dst=DSTIP, flags="DF", ttl=128)
-
-    tcp_options = [("MSS" , 1460) , ("NOP",None) ,("WScale",2),
-    ("NOP",None), ("NOP",None), ("SAckOK","")]
-
-    SYN=TCP(sport=SPORT, dport=8008, flags="S", seq=10,window=0xffff, options=tcp_options)
-    SYN_ACK=sr1(ip/SYN)
-
-    my_ack = SYN_ACK.seq+1
-    ACK=TCP(sport=SPORT, dport=8008, flags="A" , seq=11 , ack=my_ack, window=0xffff)
-    send(ip/ACK)
-
-    data = "GET / HTTP/1.1\r\nHost: " + DSTIP + "\r\ Mozilla/5.0 "
-    PUSH = TCP(sport=SPORT, dport=8008, flags="PA" , seq=11, ack=my_ack, window=0xffff)
-    send(ip/PUSH/data)
+    os = ''
+    target = input("Enter the Ip address:")
+    pack = IP(dst=target)/ICMP()
+    resp = sr1(pack, timeout=3)
+    if resp:
+        if IP in resp:
+            ttl = resp.getlayer(IP).ttl
+            if ttl <= 64: 
+                os = 'Linux'
+            elif ttl > 64:
+                os = 'Windows'
+            else:
+                print('Not Found')
+            print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
 
 
 def Portrequest():
