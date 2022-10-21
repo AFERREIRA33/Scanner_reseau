@@ -22,7 +22,6 @@ def ARPrequest():
         ans.summary()
     else:
         print("please enter a valid interface")
-        ARPrequest()
 
 def osrequest():
     os = ''
@@ -51,7 +50,6 @@ def osrequest():
                     print('Not Found')
     else:
         print("please enter a valid ip")
-        osrequest()
             
 
 def Portrequest():
