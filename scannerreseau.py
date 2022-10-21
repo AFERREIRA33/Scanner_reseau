@@ -24,7 +24,7 @@ def ARPrequest():
 def osrequest():
     os = ''
     target = str(input("Enter the Ip address:"))
-    reg = r"[^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$]"
+    reg = r"([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])";
     if re.match(reg, target):
         pack = IP(dst=target)/ICMP()
         resp = sr1(pack, timeout=3)
