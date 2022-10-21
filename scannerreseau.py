@@ -12,7 +12,8 @@ def ARPrequest():
     print(intertable)
     interfaces = str(input())
     if interfaces in intertable:
-        IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
+        IpAddr = netifaces.ifaddresses(
+            interfaces)[netifaces.AF_INET][0]['addr']
         Netmask = netifaces.ifaddresses(
             interfaces)[netifaces.AF_INET][0]['netmask']
         a = ipaddress.ip_network(
@@ -23,6 +24,7 @@ def ARPrequest():
     else:
         print("please enter a valid interface")
         ARPrequest()
+
 
 def osrequest():
     os = ''
@@ -52,7 +54,7 @@ def osrequest():
     else:
         print("please enter a valid ip")
         osrequest()
-            
+
 
 def Portrequest():
     print("work")
@@ -64,7 +66,7 @@ def Portrequest():
         raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(sync, timeout=2, retry=1)
     print("-------------")
-    print(ans[0].flags)
+    print(ans[0].answer)
     print("-------------")
     print(ans[1])
     print("-------------")
