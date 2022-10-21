@@ -61,7 +61,7 @@ def Portrequest():
     print("Choose an IP to scan :")
     ip = str(input())
     try:
-        sync = IP(dst=ip) / TCP(dport=[22, 80, 443], flags="S")
+        sync = IP(dst=ip) / TCP(dport=[22, 80, 443, 25565], flags="S")
     except socket.gaierror:
         raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(sync, timeout=2, retry=1)
