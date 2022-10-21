@@ -47,9 +47,6 @@ def Portrequest():
     except socket.gaierror:
         raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(port, timeout=2, retry=1)
-    for sent, received in ans:
-        if received[TCP].flags == "SA":
-            print(received[TCP].sport)
 
 
 def argumentstart(args):
