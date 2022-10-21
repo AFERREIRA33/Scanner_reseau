@@ -20,14 +20,26 @@ def ARPrequest():
     ans.summary()
 
 def TCPrequest():
-    i = netifaces.interfaces()
-    print(i)
-    interfaces = str(input())
-    IpAddr = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['addr']
-    Netmask = netifaces.ifaddresses(interfaces)[netifaces.AF_INET][0]['netmask']
-    a = ipaddress.ip_network(
-        IpAddr + '/'+str(IPAddress(Netmask).netmask_bits()), strict=False)
-    ip = str(a)
+
+    DSTIP = "192.168.56.105"
+    SPORT = RandNum(1025,65535)
+
+    ip = IP(dst=DSTIP, flags="DF", ttl=128)
+
+    tcp_options = [("MSS" , 1460) , ("NOP",None) ,("WScale",2),
+    ("NOP",None), ("NOP",None), ("SAckOK","")]
+
+    SYN=TCP(sport=SPORT, dport=8008, flags="S", seq=10,window=0xffff, options=tcp_options)
+    SYN_ACK=sr1(ip/SYN)
+
+    my_ack = SYNACK.seq+1
+    ACK=TCP(sport=SPORT, dport=8008, flags="A" , seq=11 , ack=my_ack, window=0xffff)
+    send(ip/ACK)
+
+    data = "GET / HTTP/1.1\r\nHost: " + DSTIP + "\r\ Mozilla/5.0 "
+    PUSH = TCP(sport=SPORT, dport=8008, flags="PA" , seq=11, ack=my_ack, window=0xffff)
+    send(ip/PUSH/data)
+
 
 def Portrequest():
     print("work")
@@ -48,7 +60,7 @@ def argumentstart(args):
         return "invalidargs"
 
 
-if len(sys.argv) <= 2:
+if len(sys.argv) <= 2 or len(sys.argv) > 1:
     args = str(sys.argv[1])
     resarg = argumentstart(args)
     if resarg == "TCP":
