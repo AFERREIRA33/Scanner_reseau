@@ -28,6 +28,7 @@ def TCPrequest():
     if resp:
         if IP in resp:
             ttl = resp.getlayer(IP).ttl
+            print(ttl)
             if ttl == 64: 
                 os = 'Linux'
                 print(f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
