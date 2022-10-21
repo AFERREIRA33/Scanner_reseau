@@ -51,11 +51,17 @@ def Portrequest():
     print("work")
     print("Choose an IP to scan :")
     ip = str(input())
-    port = IP(dst=ip) / TCP(dport=[22, 443], flags="S")
-    ans, _ = sr(port, timeout=2, retry=1)
-    for sent, received in ans:
-        if received[TCP].flags == "SA":
-            print(received[TCP].sport)
+    try:
+        sync = IP(dst=ip) / TCP(dport=[22, 80, 443], flags="S")
+    except socket.gaierror:
+        raise ValueError('Hostname {} could not be resolved.'.format(ip))
+    ans, _ = sr(sync, timeout=2, retry=1)
+    print("-------------")
+    print(ans[0])
+    print("-------------")
+    print(ans[1])
+    print("-------------")
+    print(ans[2])
 
 
 def argumentstart(args):
