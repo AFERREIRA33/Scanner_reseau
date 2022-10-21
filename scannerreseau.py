@@ -75,7 +75,7 @@ def Portrequest(ip=""):
     for sent, recieved in ans:
         count += 1
         # if ("TCPerror" not in recieved.summary()):
-        print(recieved.summary())
+        # print(recieved.summary())
         print(sent.summary())
     print(count)
 
