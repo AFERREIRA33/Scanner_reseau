@@ -58,8 +58,6 @@ def osrequest(target=""):
 
 
 def Portrequest(ip=""):
-    # portTest = ["20", "21", "22", "23", "25", "53", "80", "110", "111", "135", "139", "143",
-    # "443", "445", "993", "995", "1723", "3306", "3389", "5900", "8000", "8080", "25565"]
     if ip == "":
         ip = str(input("Choose an IP to scan : "))
     try:
@@ -71,7 +69,6 @@ def Portrequest(ip=""):
     for sent, recieved in ans:
         if ("TCPerror" not in recieved.summary()):
             print(recieved.summary())
-        # print(sent.summary())
 
 
 def argumentstart(args):
