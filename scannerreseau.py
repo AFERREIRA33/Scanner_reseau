@@ -7,7 +7,7 @@ import sys
 from scapy.layers.inet import IP, ICMP
 
 
-def ARPrequest(interfaces = ""):
+def ARPrequest(interfaces=""):
     intertable = netifaces.interfaces()
     if interfaces == "":
         print(intertable)
@@ -28,11 +28,11 @@ def ARPrequest(interfaces = ""):
         ARPrequest()
 
 
-def osrequest(target = ""):
+def osrequest(target=""):
     if target == "":
         target = str(input("Enter the Ip address: "))
     os = ''
-    
+
     reg = r"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
     if re.match(reg, target):
         pack = IP(dst=target)/ICMP()
@@ -57,18 +57,21 @@ def osrequest(target = ""):
         osrequest()
 
 
-def Portrequest(ip = ""):
+def Portrequest(ip=""):
+    # portTest = ["20", "21", "22", "23", "25", "53", "80", "110", "111", "135", "139", "143",
+    # "443", "445", "993", "995", "1723", "3306", "3389", "5900", "8000", "8080", "25565"]
     if ip == "":
-       ip = str(input("Choose an IP to scan : "))
+        ip = str(input("Choose an IP to scan : "))
     try:
-        sync = IP(dst=ip) / TCP(dport=[20, 21, 22, 23, 25, 53, 80, 110, 111, 135, 139,
-                                       143, 443, 445, 993, 995, 1723, 3306, 3389, 5900, 8080, 25565], flags="S")
+        sync = IP(dst=ip) / TCP(dport=[21, 22, 23, 25, 53, 80, 110, 111, 135, 139,
+                                       143, 443, 445, 993, 995, 1723, 3306, 3389, 5900, 8000, 8080, 25565], flags="S")
     except socket.gaierror:
         raise ValueError('Hostname {} could not be resolved.'.format(ip))
     ans, _ = sr(sync, timeout=2, retry=1)
     for sent, recieved in ans:
         if ("TCPerror" not in recieved.summary()):
             print(recieved.summary())
+        # print(sent.summary())
 
 
 def argumentstart(args):
@@ -99,7 +102,7 @@ if len(sys.argv) <= 3 or len(sys.argv) > 1:
             ARPrequest()
         elif resarg == "Port":
             Portrequest()
-    else :
+    else:
         args = str(sys.argv[1])
         arg1 = str(sys.argv[2])
         resarg = argumentstart(args)
