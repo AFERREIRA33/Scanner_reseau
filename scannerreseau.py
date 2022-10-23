@@ -43,13 +43,16 @@ def osrequest(target=""):
                 print(ttl)
                 if ttl == 64:
                     os = 'Linux'
-                    print(f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
+                    print(
+                        f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
                 elif ttl == 128:
                     os = 'Windows'
-                    print(f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
+                    print(
+                        f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
                 elif ttl == 255:
                     os = 'Cisco Routeur'
-                    print(f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
+                    print(
+                        f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
                 else:
                     print('Not Found')
     else:
@@ -89,7 +92,7 @@ def argumentstart(args):
         return "invalidargs"
 
 
-if len(sys.argv) <= 3 or len(sys.argv) > 1:
+if len(sys.argv) <= 3 and len(sys.argv) > 1:
     if len(sys.argv) <= 2:
         args = str(sys.argv[1])
         resarg = argumentstart(args)
