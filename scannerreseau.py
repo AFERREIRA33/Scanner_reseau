@@ -43,16 +43,13 @@ def osrequest(target = ""):
                 print(ttl)
                 if ttl == 64:
                     os = 'Linux'
-                    print(
-                        f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+                    print(f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
                 elif ttl == 128:
                     os = 'Windows'
-                    print(
-                        f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+                    print(f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
                 elif ttl == 255:
                     os = 'Cisco Routeur'
-                    print(
-                        f'\n\nTTL = {ttl} \n*{os}* Operating System is Detected \n\n')
+                    print(f"\n\nTTL = {ttl} \n*{os}* Operating System is Detected")
                 else:
                     print('Not Found')
     else:
@@ -88,7 +85,7 @@ def argumentstart(args):
     else:
         print("please enter a valid argument"+"\n")
         print("-a : make arp request to all network"+"\n"+"-o : find the os of the choose ip" +
-              "\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
+              "\n"+"-p : scan port of choose ip"+"\n"+"-h : show list of command")
         return "invalidargs"
 
 
@@ -109,15 +106,14 @@ if len(sys.argv) <= 3 or len(sys.argv) > 1:
         if resarg == "os":
             osrequest(arg1)
         elif resarg == "ARP":
-            print(arg1)
             ARPrequest(arg1)
         elif resarg == "Port":
             Portrequest(arg1)
 elif len(sys.argv) >= 3:
     print("too many argument"+"\n")
     print("-a : make arp request to all network"+"\n"+"-o : find the os of the choose ip" +
-          "\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
+          "\n"+"-p : scan port of choose ip"+"\n"+"-h : show list of command")
 else:
     print("please enter a argument"+"\n")
     print("-a : make arp request to all network"+"\n"+"-o : find the os of the choose ip" +
-          "\n"+"-p : scan port of choose ip"+"\n"+"-h : show command")
+          "\n"+"-p : scan port of choose ip"+"\n"+"-h : show list of command")
